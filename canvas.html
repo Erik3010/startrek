@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Star Trek Battle</title>
+		<link rel="stylesheet" type="text/css" href="canvas.css" />
+		<link rel="stylesheet" type="text/css" href="meter.css" />
+		<script type="text/javascript" src="ship.js"></script>
+		<script type="text/javascript" src="canvas.js"></script>
+	</head>
+	<body onLoad="switchTurn();">
+		<canvas id="trekCanvas" width="1900" height="768">
+			Your browser does not support the HTML5 canvas tag.
+		</canvas>
+		<audio id="phaser">
+			<source src="audio/phaser.ogg" type="audio/ogg" />
+			<source src="audio/phaser.mp3" type="audio/mpeg" />
+		</audio>
+		<audio id="quantum">
+			<source src="audio/quantum.ogg" type="audio/ogg" />
+			<source src="audio/quantum.mp3" type="audio/mpeg" />
+		</audio>
+		<audio id="red_alert">
+			<source src="audio/red_alert.ogg" type="audio/ogg" />
+			<source src="audio/red_alert.mp3" type="audio/mpeg" />
+		</audio>
+		<audio id="romulan_disruptor">
+			<source src="audio/romulan_disruptor.ogg" type="audio/ogg" />
+			<source src="audio/romulan_disruptor.mp3" type="audio/mpeg" />
+		</audio>
+		<audio id="romulan_red_alert">
+			<source src="audio/romulan_red_alert.ogg" type="audio/ogg" />
+			<source src="audio/romulan_red_alert.mp3" type="audio/mpeg" />
+		</audio>
+		<audio id="romulan_torpedo">
+			<source src="audio/romulan_torpedo.ogg" type="audio/ogg" />
+			<source src="audio/romulan_torpedo.mp3" type="audio/mpeg" />
+		</audio>
+		<audio id="tng_theme">
+			<source src="audio/tng_theme.ogg" type="audio/ogg" />
+			<source src="audio/tng_theme.mp3" type="audio/mpeg" />
+		</audio>
+		<div id="frame">
+			<section id="romulanFrame">
+				<img class="centeredBlock" src="images/romulan.png" /><br />
+				<div class="operationsBlock">
+					<h3>Tactical</h3>
+					<button class="romulan" id="romulanRedAlertButton" onClick="romulanRedAlert();">Red Alert</button><br />
+					<button class="romulan" id="disruptorButton" onClick="disruptors();">Fire Disruptors</button><br />
+					<button class="romulan" id="plasmaButton" onClick="plasmas();">Fire Plasma Torpedos</button>
+				</div>
+				<div class="operationsBlock rightBlock">
+					<h3>Engineering</h3>
+					<button class="romulan" id="romulanShieldsButton" onClick="WARBIRD.emergencyToShields(); switchTurn();">Emergency Power to Shields</button><br />
+					<button class="romulan" id="romulanEngineeringButton" onClick="WARBIRD.engineeringTeam(); switchTurn();">Engineering Team</button><br />
+				</div>
+				<div class="operationsBlock rightBlock">
+					<h3>Operations</h3>
+					<table>
+						<tr><th>System</th><th>Status</th></tr>
+						<tr><td>Hull</td><td id="romulanHullMeter" class="meter"><span id="romulanHull" style="width: 100%"></span></td></tr>
+						<tr><td>Shields</td><td id="romulanShieldsMeter" class="meter"><span id="romulanShields" style="width: 100%"></span></td></tr>
+					</table>
+				</div>
+			</section>
+			<section id="federationFrame">
+				<img class="centeredBlock" src="images/federation.png" /><br />
+				<div class="operationsBlock">
+					<h3>Tactical</h3>
+					<button class="lcars" id="redAlertButton" onClick="redAlert();">Red Alert</button><br />
+					<button class="lcars" id="phaserButton" onClick="phasers();">Fire Phasers</button><br />
+					<button class="lcars" id="quantumButton" onClick="quantums();">Fire Quantum Torpedos</button>
+				</div>
+				<div class="operationsBlock rightBlock">
+					<h3>Engineering</h3>
+					<button class="lcars" id="shieldsButton" onClick="ENTERPRISE.emergencyToShields(); switchTurn();">Emergency Power to Shields</button><br />
+					<button class="lcars" id="engineeringButton" onClick="ENTERPRISE.engineeringTeam(); switchTurn();">Engineering Team</button><br />
+				</div>
+				<div class="operationsBlock rightBlock">
+					<h3>Science</h3>
+					<button class="lcars" id="gravityWellButton">Gravity Well</button>
+					<button class="lcars" id="jamSensorsButton">Jam Sensors</button>
+				</div>
+				<div class="operationsBlock rightBlock">
+					<h3>Operations</h3>
+					<table>
+						<tr><th>System</th><th>Status</th></tr>
+						<tr><td>Hull</td><td id="hullMeter" class="meter"><span id="hull" style="width: 100%"></span></td></tr>
+						<tr><td>Shields</td><td id="shieldsMeter" class="meter"><span id="shields" style="width: 100%"></span></td></tr>
+					</table>
+				</div>
+			</section>
+		</div>
+	</body>
+</html>
