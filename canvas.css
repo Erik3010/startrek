@@ -1,6 +1,13 @@
-body
-{
-	font-family: sans-serif;
+.btn-trek {
+	border-radius: 10%;
+	font-weight: bold;
+}
+
+.progress-bar-setup {
+	width: 100%;
+	min-width: 4em;
+	font-weight: bold;
+	color: black;
 }
 
 #trekCanvas
@@ -8,52 +15,14 @@ body
 	background: url("images/scene.png") black no-repeat center;
 }
 
-#frame
-{
-	width: 1900px;
-}
-
 #federationFrame
 {
 	background-color: blue;
-	float: left;
-	width: 50%;
 }
 
 #romulanFrame
 {
 	background-color: green;
-	float: left;
-	width: 50%;
-}
-
-.hidden
-{
-	display: hidden;
-}
-
-.centeredBlock
-{
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.lcars
-{
-	border: none;
-	border-radius: 10%;
-	font-weight: bold;
-}
-
-.operationsBlock
-{
-	float: left;
-}
-
-.rightBlock
-{
-	margin-left: 15%;
 }
 
 #redAlertButton
@@ -81,13 +50,6 @@ body
 	background-color: yellow;
 }
 
-.romulan
-{
-	border: none;
-	border-radius: 10%;
-	font-weight: bold;
-}
-
 #romulanRedAlertButton
 {
 	background-color: cyan;
@@ -113,7 +75,7 @@ body
 	background-color: lime;
 }
 
-@-webkit-keyframes redAlert	
+@-webkit-keyframes redAlert
 {
 	0%
 	{
@@ -125,7 +87,7 @@ body
 	}
 }
 
-@-webkit-keyframes romulanRedAlert	
+@-webkit-keyframes romulanRedAlert
 {
 	0%
 	{
