@@ -2,11 +2,11 @@
 var ENTERPRISE_MAX_HULL    = 42900;
 var ENTERPRISE_MAX_SHIELDS = 8432;
 var WARBIRD_MAX_HULL       = 44550;
-var WARBIRD_MAX_SHIELDS   = 9684;
+var WARBIRD_MAX_SHIELDS    = 9684;
 
 /* global variables */
-var ENTERPRISE = new Ship(ENTERPRISE_MAX_HULL, ENTERPRISE_MAX_SHIELDS, "hull", "hullMeter", "shields", "shieldsMeter");
-var WARBIRD    = new Ship(WARBIRD_MAX_HULL, WARBIRD_MAX_SHIELDS, "romulanHull", "romulanHullMeter", "romulanShields", "romulanShieldsMeter");
+var ENTERPRISE = new Ship(ENTERPRISE_MAX_HULL, ENTERPRISE_MAX_SHIELDS, "hull", "shields");
+var WARBIRD    = new Ship(WARBIRD_MAX_HULL, WARBIRD_MAX_SHIELDS, "romulanHull", "romulanShields");
 var TURN       = true; // true = Federation, false = Romulan
 
 /* set requesting of the animation frame; this lets browsers optimize the animation of the object in motion
