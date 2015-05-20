@@ -5,14 +5,17 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="//code.createjs.com/easeljs-0.8.0.min.js"></script>
 		<script type="text/javascript" src="ship.js"></script>
 		<script type="text/javascript" src="canvas.js"></script>
 		<link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
-		<link type="text/css" rel="stylesheet" href="bootstrap.css" />
+		<link type="text/css" rel="stylesheet" href="canvas.css" />
 		<title>Star Trek Battle</title>
 	</head>
-	<body onLoad="switchTurn();">
+	<body onload="CANVAS = new Canvas('trekCanvas'); CANVAS.resize();" onresize="CANVAS.resize();">
 		<main class="container-fluid">
+			<img class="hidden" src="images/enterprise.png" width="0" height="0" alt="" />
+			<img class="hidden" src="images/warbird.png" width="0" height="0" alt="">
 			<div class="row">
 				<canvas id="trekCanvas" width="1900" height="768">
 					Your browser does not support the HTML5 canvas tag.

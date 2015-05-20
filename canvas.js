@@ -1,13 +1,60 @@
+function Canvas(canvasId) {
+	this.canvasId = canvasId;
+	this.context = null;
+	this.width = 0;
+	this.height = 0;
+	this.scalar = 0;
+	this.stage = new createjs.Stage(canvasId);
+	this.turn = true;
+	this.enterpriseImage = new createjs.Bitmap("images/enterprise.png");
+	this.warbirdImage = new createjs.Bitmap("images/warbird.png");
+}
+
 /* global constants */
+var ASPECT_RATIO           = 1900 / 768;
+var ASPECT_RATIO_INVERSE   = 1 / ASPECT_RATIO;
 var ENTERPRISE_MAX_HULL    = 42900;
 var ENTERPRISE_MAX_SHIELDS = 8432;
+var ENTERPRISE_BASE_X      = 1157;
+var ENTERPRISE_BASE_Y      = 278;
 var WARBIRD_MAX_HULL       = 44550;
 var WARBIRD_MAX_SHIELDS    = 9684;
+var WARBIRD_BASE_X         = 50;
+var WARBIRD_BASE_Y         = 187;
 
 /* global variables */
+var CANVAS     = null;
 var ENTERPRISE = new Ship(ENTERPRISE_MAX_HULL, ENTERPRISE_MAX_SHIELDS, "hull", "shields");
 var WARBIRD    = new Ship(WARBIRD_MAX_HULL, WARBIRD_MAX_SHIELDS, "romulanHull", "romulanShields");
 var TURN       = true; // true = Federation, false = Romulan
+
+Canvas.prototype.resize = function() {
+	if(window.innerWidth < 1900) {
+		this.width  = window.innerWidth;
+		this.height = Math.floor(window.innerWidth * ASPECT_RATIO_INVERSE);
+	} else {
+		this.width  = 1900;
+		this.height = 768;
+	}
+	$("#" + this.canvasId).width(this.width);
+	$("#" + this.canvasId).height(this.height);
+	this.scalar = this.height / 768;
+
+	this.enterpriseImage.x = ENTERPRISE_BASE_X * this.scalar;
+	this.enterpriseImage.y = ENTERPRISE_BASE_Y * this.scalar;
+	this.enterpriseImage.scaleX = this.scalar;
+	this.enterpriseImage.scaleY = this.scalar;
+
+	this.warbirdImage.x = WARBIRD_BASE_X * this.scalar;
+	this.warbirdImage.y = WARBIRD_BASE_Y * this.scalar;
+	this.warbirdImage.scaleX = this.scalar;
+	this.warbirdImage.scaleY = this.scalar;
+
+	this.stage.clear();
+	this.stage.addChild(this.enterpriseImage);
+	this.stage.addChild(this.warbirdImage);
+	this.stage.update();
+}
 
 /* set requesting of the animation frame; this lets browsers optimize the animation of the object in motion
  * source: http://www.html5canvastutorials.com/advanced/html5-canvas-animation-stage/ */

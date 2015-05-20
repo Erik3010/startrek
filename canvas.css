@@ -10,9 +10,13 @@
 	color: black;
 }
 
+.hidden {
+	display: none;
+}
+
 #trekCanvas
 {
-	background: url("images/scene.png") black no-repeat center;
+	background: black;
 }
 
 #federationFrame
@@ -79,11 +83,11 @@
 {
 	0%
 	{
-		background: url("images/scene.png") red no-repeat center;
+		background: red;
 	}
 	100%
 	{
-		background: url("images/scene.png") black no-repeat center;
+		background: black;
 	}
 }
 
@@ -91,10 +95,10 @@
 {
 	0%
 	{
-		background: url("images/scene.png") green no-repeat center;
+		background: green;
 	}
 	100%
 	{
-		background: url("images/scene.png") black no-repeat center;
+		background: black;
 	}
 }
