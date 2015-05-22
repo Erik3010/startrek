@@ -1,18 +1,4 @@
-function Canvas(canvasId) {
-	this.canvasId = canvasId;
-	this.context = null;
-	this.width = 0;
-	this.height = 0;
-	this.scalar = 0;
-	this.stage = new createjs.Stage(canvasId);
-	this.turn = true;
-	this.enterpriseImage = new createjs.Bitmap("images/enterprise.png");
-	this.warbirdImage = new createjs.Bitmap("images/warbird.png");
-}
-
 /* global constants */
-var ASPECT_RATIO           = 1900 / 768;
-var ASPECT_RATIO_INVERSE   = 1 / ASPECT_RATIO;
 var ENTERPRISE_MAX_HULL    = 42900;
 var ENTERPRISE_MAX_SHIELDS = 8432;
 var ENTERPRISE_BASE_X      = 1157;
@@ -28,25 +14,123 @@ var ENTERPRISE = new Ship(ENTERPRISE_MAX_HULL, ENTERPRISE_MAX_SHIELDS, "hull", "
 var WARBIRD    = new Ship(WARBIRD_MAX_HULL, WARBIRD_MAX_SHIELDS, "romulanHull", "romulanShields");
 var TURN       = true; // true = Federation, false = Romulan
 
-Canvas.prototype.resize = function() {
-	this.width = document.getElementById(this.canvasId).width;
-	this.height = document.getElementById(this.canvasId).height;
-	this.scalar = this.height / 768;
+var Canvas = function(canvasId) {
+	this.canvasId = canvasId;
+	this.stage = new createjs.Stage(this.canvasId);
+	this.turn = true;
+	this.preload = new createjs.LoadQueue(true);
+	this.enterpriseImage = null;
+	this.warbirdImage = null;
 
-	this.enterpriseImage.x = ENTERPRISE_BASE_X * this.scalar;
-	this.enterpriseImage.y = ENTERPRISE_BASE_Y * this.scalar;
-	this.enterpriseImage.scaleX = this.scalar;
-	this.enterpriseImage.scaleY = this.scalar;
+	this.preload.loadFile({id: "enterprise", src: "images/enterprise.png"});
+	this.preload.loadFile({id: "warbird", src: "images/warbird.png"});
+	this.preload.on("complete", this.loaded, this, true);
+}
 
-	this.warbirdImage.x = WARBIRD_BASE_X * this.scalar;
-	this.warbirdImage.y = WARBIRD_BASE_Y * this.scalar;
-	this.warbirdImage.scaleX = this.scalar;
-	this.warbirdImage.scaleY = this.scalar;
+Canvas.prototype.loaded = function() {
+	this.enterpriseImage = new createjs.Bitmap("images/enterprise.png");
+	this.warbirdImage = new createjs.Bitmap("images/warbird.png");
 
+	this.enterpriseImage.x = ENTERPRISE_BASE_X;
+	this.enterpriseImage.y = ENTERPRISE_BASE_Y;
+
+	this.warbirdImage.x = WARBIRD_BASE_X;
+	this.warbirdImage.y = WARBIRD_BASE_Y;
+
+	createjs.Ticker.on("tick", this.reset, this, true);
+}
+
+Canvas.prototype.reset = function() {
 	this.stage.clear();
 	this.stage.addChild(this.enterpriseImage);
 	this.stage.addChild(this.warbirdImage);
 	this.stage.update();
+
+	//if(event !== undefined && event.type === "tick") {
+	//	createjs.Ticker.removeAllEventListeners();
+	//}
+}
+
+Canvas.prototype.update = function() {
+	this.stage.update();
+}
+
+Canvas.prototype.drawPhaser = function(color, thickness, x1, y1, x2, y2) {
+	//context.save();
+	//context.beginPath();
+	//context.moveTo(x1, y1);
+	//context.lineWidth = width;
+	//context.strokeStyle = style;
+	//context.lineTo(x2, y2);
+	//context.stroke();
+	//context.closePath();
+	//context.restore();
+	//return(line);
+	var line = new createjs.Shape();
+	line.graphics.moveTo(x1, y1);
+	line.graphics.setStrokeStyle(thickness);
+	line.graphics.beginStroke(color);
+	line.graphics.lineTo(x2, y2);
+	line.graphics.endStroke();
+	this.stage.addChild(line);
+	console.log(this.stage);
+	console.log(this.stage.numChildren + " === " + this.stage.children.length);
+}
+
+Canvas.prototype.phasers = function() {
+	playAudio("phaser");
+
+	//var context = getContext();
+	//drawPhaser(context, "red", 5, 1640, 322, 500, 250);
+	//drawPhaser(context, "red", 5, 1645, 325, 700, 350);
+	//drawPhaser(context, "red", 5, 1650, 327, 750, 490);
+	var color = "red";
+	var thickness = 5;
+	this.drawPhaser(color, thickness, 1640, 322, 500, 250);
+	this.drawPhaser(color, thickness, 1645, 325, 700, 350);
+	this.drawPhaser(color, thickness, 1650, 327, 750, 490);
+
+
+	//var line = new createjs.Shape();
+	//line.graphics.moveTo(1640, 322);
+	//line.graphics.setStrokeStyle(thickness);
+	//line.graphics.beginStroke(color);
+	//line.graphics.lineTo(500, 250);
+	//line.graphics.endStroke();
+	//this.stage.addChild(line);
+
+	//this.stage.removeAllChildren();
+	//for(var i = 0; i < phasers.length; i++) {
+	//	this.stage.addChild(phasers[i]);
+	//}
+	//this.stage.addChild(phasers[0]);
+	// clear canvas
+	//window.setTimeout(function()
+	//{
+	//	var canvas = document.getElementById("trekCanvas");
+	//	context.clearRect(0, 0, canvas.width, canvas.height);
+	//}, 1600);
+	console.log(this);
+	createjs.Ticker.on("tick", this.update, this, true);
+
+	//createjs.Ticker.timingMode = createjs.Ticker.TIMEOUT;
+	//createjs.Ticker.interval = 1600;
+	//createjs.Ticker.on("tick", this.reset, this, true);
+
+	// calculate base damage & roll for critical hit
+	var baseDamage = 463.0 * (Math.random() / 2.0 + 0.5);
+	if(Math.random() < 0.1)
+	{
+		baseDamage = baseDamage * 1.5;
+	}
+
+	// calculate actual damage values
+	var hullDamage     = (1.0 - (WARBIRD.shields / WARBIRD.maxShields)) * baseDamage;
+	var shieldDamage   = baseDamage * 1.3;
+
+	// damage the Romulan Wardbird
+	WARBIRD.damage(hullDamage, shieldDamage);
+	//switchTurn();
 }
 
 /* set requesting of the animation frame; this lets browsers optimize the animation of the object in motion

@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="//code.createjs.com/preloadjs-0.6.1.min.js"></script>
 		<script type="text/javascript" src="//code.createjs.com/easeljs-0.8.0.min.js"></script>
 		<script type="text/javascript" src="ship.js"></script>
 		<script type="text/javascript" src="canvas.js"></script>
@@ -12,10 +13,8 @@
 		<link type="text/css" rel="stylesheet" href="canvas.css" />
 		<title>Star Trek Battle</title>
 	</head>
-	<body onload="CANVAS = new Canvas('trekCanvas'); CANVAS.resize();" onresize="CANVAS.resize();">
+	<body onload="CANVAS = new Canvas('trekCanvas');">
 		<main class="container-fluid">
-			<img class="hidden" src="images/enterprise.png" width="0" height="0" alt="" />
-			<img class="hidden" src="images/warbird.png" width="0" height="0" alt="">
 			<audio id="phaser">
 				<source src="audio/phaser.ogg" type="audio/ogg" />
 				<source src="audio/phaser.mp3" type="audio/mpeg" />
@@ -40,12 +39,12 @@
 				<source src="audio/romulan_torpedo.ogg" type="audio/ogg" />
 				<source src="audio/romulan_torpedo.mp3" type="audio/mpeg" />
 			</audio>
-			<audio id="tng_theme">
-				<source src="audio/tng_theme.ogg" type="audio/ogg" />
-				<source src="audio/tng_theme.mp3" type="audio/mpeg" />
-			</audio>
+			<!--<audio id="tng_theme">-->
+				<!--<source src="audio/tng_theme.ogg" type="audio/ogg" />-->
+				<!--<source src="audio/tng_theme.mp3" type="audio/mpeg" />-->
+			<!--</audio>-->
 			<section class="row">
-				<canvas id="trekCanvas" width="1900" height="768">
+				<canvas id="trekCanvas" height="768" width="1900">
 					Your browser does not support the HTML5 canvas tag.
 				</canvas>
 			</section>
@@ -54,14 +53,14 @@
 					<img class="centeredBlock" src="images/romulan.png" /><br />
 					<div class="operationsBlock">
 						<h3>Tactical</h3>
-						<button class="btn btn-default btn-xs btn-trek" id="romulanRedAlertButton" onClick="romulanRedAlert();">Red Alert</button><br />
-						<button class="btn btn-default btn-xs btn-trek" id="disruptorButton" onClick="disruptors();">Fire Disruptors</button><br />
-						<button class="btn btn-default btn-xs btn-trek" id="plasmaButton" onClick="plasmas();">Fire Plasma Torpedos</button>
+						<button class="btn btn-default btn-xs btn-trek romulan" id="romulanRedAlertButton" onClick="romulanRedAlert();">Red Alert</button><br />
+						<button class="btn btn-default btn-xs btn-trek romulan" id="disruptorButton" onClick="disruptors();">Fire Disruptors</button><br />
+						<button class="btn btn-default btn-xs btn-trek romulan" id="plasmaButton" onClick="plasmas();">Fire Plasma Torpedos</button>
 					</div>
 					<div class="operationsBlock rightBlock">
 						<h3>Engineering</h3>
-						<button class="btn btn-default btn-xs btn-trek" id="romulanShieldsButton" onClick="WARBIRD.emergencyToShields(); switchTurn();">Emergency Power to Shields</button><br />
-						<button class="btn btn-default btn-xs btn-trek" id="romulanEngineeringButton" onClick="WARBIRD.engineeringTeam(); switchTurn();">Engineering Team</button><br />
+						<button class="btn btn-default btn-xs btn-trek romulan" id="romulanShieldsButton" onClick="WARBIRD.emergencyToShields(); switchTurn();">Emergency Power to Shields</button><br />
+						<button class="btn btn-default btn-xs btn-trek romulan" id="romulanEngineeringButton" onClick="WARBIRD.engineeringTeam(); switchTurn();">Engineering Team</button><br />
 					</div>
 					<div class="operationsBlock rightBlock">
 						<h3>Operations</h3>
@@ -95,14 +94,14 @@
 					<img class="centeredBlock" src="images/federation.png" /><br />
 					<div class="operationsBlock">
 						<h3>Tactical</h3>
-						<button class="btn btn-default btn-xs btn-trek" id="redAlertButton" onClick="redAlert();">Red Alert</button><br />
-						<button class="btn btn-default btn-xs btn-trek" id="phaserButton" onClick="phasers();">Fire Phasers</button><br />
-						<button class="btn btn-default btn-xs btn-trek" id="quantumButton" onClick="quantums();">Fire Quantum Torpedos</button>
+						<button class="btn btn-default btn-xs btn-trek lcars" id="redAlertButton" onClick="redAlert();">Red Alert</button><br />
+						<button class="btn btn-default btn-xs btn-trek lcars" id="phaserButton" onClick="phasers();">Fire Phasers</button><br />
+						<button class="btn btn-default btn-xs btn-trek lcars" id="quantumButton" onClick="quantums();">Fire Quantum Torpedos</button>
 					</div>
 					<div class="operationsBlock rightBlock">
 						<h3>Engineering</h3>
-						<button class="btn btn-default btn-xs btn-trek" id="shieldsButton" onClick="ENTERPRISE.emergencyToShields(); switchTurn();">Emergency Power to Shields</button><br />
-						<button class="btn btn-default btn-xs btn-trek" id="engineeringButton" onClick="ENTERPRISE.engineeringTeam(); switchTurn();">Engineering Team</button><br />
+						<button class="btn btn-default btn-xs btn-trek lcars" id="shieldsButton" onClick="ENTERPRISE.emergencyToShields(); switchTurn();">Emergency Power to Shields</button><br />
+						<button class="btn btn-default btn-xs btn-trek lcars" id="engineeringButton" onClick="ENTERPRISE.engineeringTeam(); switchTurn();">Engineering Team</button><br />
 					</div>
 					<div>
 						<h3>Operations</h3>
