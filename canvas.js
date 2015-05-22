@@ -29,15 +29,8 @@ var WARBIRD    = new Ship(WARBIRD_MAX_HULL, WARBIRD_MAX_SHIELDS, "romulanHull", 
 var TURN       = true; // true = Federation, false = Romulan
 
 Canvas.prototype.resize = function() {
-	if(window.innerWidth < 1900) {
-		this.width  = window.innerWidth;
-		this.height = Math.floor(window.innerWidth * ASPECT_RATIO_INVERSE);
-	} else {
-		this.width  = 1900;
-		this.height = 768;
-	}
-	$("#" + this.canvasId).width(this.width);
-	$("#" + this.canvasId).height(this.height);
+	this.width = document.getElementById(this.canvasId).width;
+	this.height = document.getElementById(this.canvasId).height;
 	this.scalar = this.height / 768;
 
 	this.enterpriseImage.x = ENTERPRISE_BASE_X * this.scalar;

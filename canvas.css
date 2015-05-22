@@ -17,6 +17,7 @@
 #trekCanvas
 {
 	background: black;
+	width: 100vw;
 }
 
 #federationFrame
